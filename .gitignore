@@ -2,6 +2,13 @@
 .env
 .venv
 logs.txt
+hidden/
+
+# Supabase
+supabase/
+node_modules/
+package-lock.json
+package.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

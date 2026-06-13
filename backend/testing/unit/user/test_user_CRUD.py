@@ -2,8 +2,8 @@ from typing import Annotated
 
 import pytest
 
-import backend.app.user.user_CRUD as user_CRUD
-import backend.connection.models as models
+import backend.app.services.user.user_CRUD as user_CRUD
+import backend.models.models as models
 from backend.connection.connection import Base
 from backend.timestamps import current_time
 from backend.logging import log_info_test_space, current_function

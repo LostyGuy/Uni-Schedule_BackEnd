@@ -1,10 +1,10 @@
 import pytest
 from backend.testing.unit.test_database import Testengine, TestSessionLocal
-from backend.app.schedule.schedule_CRUD import create_schedule
-import backend.app.user.user_CRUD as user_CRUD
+from backend.app.services.schedule.schedule_CRUD import create_schedule
+import backend.app.services.user.user_CRUD as user_CRUD
 from backend.timestamps import current_time
 from backend.logging import current_function, log_info_test_space
-import backend.connection.models as models
+import backend.models.models as models
 from backend.hidden.pass_hashing import hash_salt
 from sqlalchemy import desc
 

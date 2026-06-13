@@ -2,66 +2,18 @@ from fastapi import FastAPI, HTTPException, Request, Response, Depends
 from fastapi.responses import JSONResponse, RedirectResponse
 from dotenv import load_dotenv
 
-from backend.logging import log_info
-import hashlib
-from backend.connection.connection import get_db
-import backend.connection.models
-
+from backend.app.routers import auth, groups, notifications, users, schedules
 load_dotenv()
 
 app = FastAPI()
-
+app.include_router(auth.router, prefix="/auth")
+app.include_router(groups.router, prefix="/groups")
+app.include_router(notifications.router, prefix="/notifications")
+app.include_router(users.router, prefix="/users")
+app.include_router(schedules.router, prefix="/schedules")
 
 #----For Web----
 @app.get("/", response_class=JSONResponse)
 async def main_page():
     return {"Hello":"Hello World"}
 #----End For Web----
-
-@app.post("/login_request", response_class=JSONResponse)
-async def user_login_request():
-    raise NotImplementedError
-
-@app.get("/login_credentials", response_class=JSONResponse)
-async def user_login_approval():
-    raise NotImplementedError
-
-@app.post("/register", response_class=JSONResponse)
-async def user_register_request():
-    raise NotImplementedError
-
-@app.post("/loged/logout_request", response_class=JSONResponse)
-async def logout_request():
-    raise NotImplementedError
-
-@app.get("/loged/user_profile", response_class=JSONResponse)
-async def get_user_data():
-    raise NotImplementedError
-
-@app.put("/loged/calendar_update_request", response_class=JSONResponse)
-async def changes_to_calendar():
-    raise NotImplementedError
-
-@app.get("/loged/calendar_update_retrival", response_class=JSONResponse)
-async def changes_from_calendars():
-    raise NotImplementedError
-
-@app.get("/loged/weekly_schedule", response_class=JSONResponse)
-async def weekly_schedule():
-    raise NotImplementedError
-
-@app.post("/loged/qr_code_request", response_class=JSONResponse)
-async def qr_code_request():
-    raise NotImplementedError
-
-@app.get("/loged/create_and_send_qr_code", response_class=JSONResponse)
-async def creation_of_qr():
-    raise NotImplementedError
-
-@app.post("/loged/add_to_group_request", response_class=JSONResponse)
-async def add_to_calendar_request():
-    raise NotImplementedError
-
-@app.get("/loged/send_push_notification", response_class=JSONResponse)
-async def send_notification():
-    raise NotImplementedError
