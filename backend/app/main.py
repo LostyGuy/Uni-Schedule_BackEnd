@@ -1,20 +1,21 @@
 from fastapi import FastAPI, HTTPException, Request, Response, Depends
 from fastapi.responses import JSONResponse, RedirectResponse
+from dotenv import load_dotenv
 
 from backend.logging import log_info
 import hashlib
-
 from backend.connection.connection import get_db
 import backend.connection.models
 
+load_dotenv()
 
 app = FastAPI()
 
 
 #----For Web----
 @app.get("/", response_class=JSONResponse)
-async def user_login_request():
-    return {"Hello":"Hello Worls"}
+async def main_page():
+    return {"Hello":"Hello World"}
 #----End For Web----
 
 @app.post("/login_request", response_class=JSONResponse)

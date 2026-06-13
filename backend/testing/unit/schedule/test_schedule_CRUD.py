@@ -5,7 +5,7 @@ import backend.app.user.user_CRUD as user_CRUD
 from backend.timestamps import current_time
 from backend.logging import current_function, log_info_test_space
 import backend.connection.models as models
-from backend.private_logic.hashing import hash_salt
+from backend.hidden.pass_hashing import hash_salt
 from sqlalchemy import desc
 
 

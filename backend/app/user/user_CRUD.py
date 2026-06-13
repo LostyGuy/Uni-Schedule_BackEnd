@@ -1,8 +1,10 @@
 from backend.connection import models
 from backend.timestamps import current_time
 from backend.logging import log_info, current_function
-from backend.private_logic.hashing import algorithm, hash_salt
+from backend.hidden.pass_hashing import algorithm, hash_salt
 from backend.security.jwt_tokens import create_jwt
+
+
 
 def new_user_register(username: str, email: str, password: str, db_session, policy_agreement: bool = False, role: int = 1) -> bool:
     '''

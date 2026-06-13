@@ -1,5 +1,5 @@
 # private logic and setup
-backend/private_logic/
+.env
 .venv
 logs.txt
 
