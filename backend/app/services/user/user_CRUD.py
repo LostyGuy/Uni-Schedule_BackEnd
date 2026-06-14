@@ -79,6 +79,10 @@ def user_login(email:str, hashed_password:str, db_session) -> bool:
 def user_log_out(db_session, access_token: str = None):
     ''' '''
 
+    if access_token is None:
+        log_info(current_function, 'access_token is None')
+        raise TypeError
+    
     status: list[any] = db_session.query(
         models.login_session.status,
         models.login_session.valid_till,
@@ -87,7 +91,7 @@ def user_log_out(db_session, access_token: str = None):
     ).order_by(
         models.login_session.issued_at.desc()
     ).first()
-
+    
     log_info(current_function, f'Status is {status[0]}')
 
     if status[0] == 'Active':
@@ -101,6 +105,7 @@ def user_log_out(db_session, access_token: str = None):
             )
             db_session.commit()
         except Exception as e:
+            db_session.rollback()
             log_info('Log Out', e)
             return False
         return True
