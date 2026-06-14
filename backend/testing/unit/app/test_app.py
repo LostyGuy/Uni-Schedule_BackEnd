@@ -14,6 +14,12 @@ import backend.testing.unit.test_database as Testdb
 #----Mock DB Setup----
 @pytest.fixture
 def Client():
+    """
+    Create a test client with a mocked database dependency.
+    
+    Returns:
+        TestClient: A test client for making HTTP requests to the FastAPI application.
+    """
     main.app.dependency_overrides[connection.get_db] = Testdb.get_db
     return TestClient(main.app)
 

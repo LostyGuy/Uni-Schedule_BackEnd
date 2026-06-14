@@ -5,6 +5,11 @@ router = APIRouter()
 
 @router.post("/login", response_class=JSONResponse)
 async def user_login_request():
+    """
+    Handle user login requests.
+    
+    This endpoint is not yet implemented.
+    """
     raise NotImplementedError
 
 # @router.get("/login_credentials", response_class=JSONResponse)
@@ -13,4 +18,7 @@ async def user_login_request():
 
 @router.post("/logout", response_class=JSONResponse)
 async def logout_request():
+    """
+    Handle logout requests.
+    """
     raise NotImplementedError

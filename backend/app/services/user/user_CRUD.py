@@ -7,10 +7,12 @@ from backend.security.jwt_tokens import create_jwt
 
 
 def new_user_register(username: str, email: str, password: str, db_session, policy_agreement: bool = False, role: int = 1) -> bool:
-    '''
-    Makes query and performs INSERT operation to add user to the database.
-    It takes username, email, password, policy_agreement, role, db_session and returns bool value to determine weather operation was a success or not.
-    '''
+    """
+    Registers a new user in the database if the policy agreement is accepted.
+    
+    Returns:
+        True if the user is successfully registered, False if the policy agreement is not accepted or registration fails.
+    """
     if policy_agreement:
         try:
             new_user = models.user(
@@ -38,6 +40,12 @@ def hash_password(password, hash_salt) -> str:
 def user_login(email:str, hashed_password:str, db_session) -> bool:
     
     #----Is Credentials Correct----
+    """
+    Authenticates a user by email and hashed password, and creates a login session on successful verification.
+    
+    Returns:
+    	(True, access_token) if the email and hashed_password match a user in the database, (False, None) otherwise
+    """
     correct_credentials: list[object] = db_session.query(
         models.user.id_user,
         models.user.email,

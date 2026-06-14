@@ -5,6 +5,13 @@ from backend.testing.unit.test_database import Testengine, TestSessionLocal
 #----Database and Session Setup----
 @pytest.fixture
 def db_session():
+    """
+    Provide a transactional database session for tests that automatically rolls back changes.
+    
+    Yields a SQLAlchemy session bound to a database connection within a transaction.
+    All modifications made during the test are rolled back upon completion, ensuring
+    test isolation.
+    """
     connection = Testengine.connect()
     transaction = connection.begin()
     session = TestSessionLocal(bind=connection)
