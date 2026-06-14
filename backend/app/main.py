@@ -15,5 +15,11 @@ app.include_router(schedules.router, prefix="/schedules")
 #----For Web----
 @app.get("/", response_class=JSONResponse)
 async def main_page():
+    """
+    Return a greeting message from the root endpoint.
+    
+    Returns:
+        dict: Dictionary containing the greeting {"Hello": "Hello World"}
+    """
     return {"Hello":"Hello World"}
 #----End For Web----

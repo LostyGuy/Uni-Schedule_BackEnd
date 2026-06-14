@@ -16,6 +16,12 @@ from backend.security.jwt_tokens import jwt_validation
 #----Database and Session Setup----
 @pytest.fixture
 def db_session():
+    """
+    Provide an isolated test database session with automatic cleanup.
+    
+    Yields:
+        Session: A SQLAlchemy test session with transaction isolation for test execution.
+    """
     connection = Testengine.connect()
     transaction = connection.begin()
     session = TestSessionLocal(bind=connection)
@@ -29,7 +35,11 @@ def db_session():
 
 #!----Tests----
 def test_is_user_in_database(db_session):
-    '''This test determines if the above setup is correct'''
+    """
+    Verify that seeded test users exist in the database with correct credentials.
+    
+    Queries the database for each seeded user and asserts that their username, email, and policy agreement status match expected values.
+    """
 
     for user in users_credentials_for_setup():
         try:
@@ -63,7 +73,9 @@ def test_new_user_register(db_session):
     assert register_Emily == True
 
 def test_user_login(db_session):
-    ''' '''
+    """
+    Verify that user login authentication creates an access token and corresponding login session record.
+    """
     #----Check Login----
     for user in users_credentials_for_setup():
         login_result = user_CRUD.user_login(

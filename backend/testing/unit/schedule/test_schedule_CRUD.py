@@ -12,6 +12,12 @@ from sqlalchemy import desc
 #----Database and Session Setup----
 @pytest.fixture
 def db_session():
+    """
+    Create an isolated SQLAlchemy session for transactional testing.
+    
+    Yields:
+    	Session: A SQLAlchemy session with transactional isolation and automatic rollback after test completion
+    """
     connection = Testengine.connect()
     transaction = connection.begin()
     session = TestSessionLocal(bind=connection)
@@ -34,6 +40,14 @@ def database_setup(db_session):
     
 
 def roles_for_setup() -> list[dict]:
+    """
+    Create and return role objects for test database seeding.
+    
+    Returns two predefined roles: an 'owner' role with ID 1 and a 'user' role with ID 2.
+    
+    Returns:
+    	tuple: A tuple containing two models.roles objects (owner_role, user_role)
+    """
     admin_role = models.roles(
         role_id = 1,
         name = 'owner',
@@ -47,14 +61,11 @@ def roles_for_setup() -> list[dict]:
     return admin_role, user_role
         
 def users_credentials_for_setup() -> list[dict]:
-    """Arguments in users: 
-        username, 
-        email, 
-        password, 
-        created_at, 
-        policy_agreement, 
-        lastly_signed_in_on, 
-        role,
+    """
+    Create test user records for database seeding in unit tests.
+    
+    Returns:
+        A tuple of two user model instances with test credentials and hashed passwords.
     """
     
     new_user_John = models.user(
