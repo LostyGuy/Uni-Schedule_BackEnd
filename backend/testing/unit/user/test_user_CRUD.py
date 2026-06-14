@@ -72,11 +72,10 @@ def test_user_login(db_session):
             db_session= db_session,
         )
     #----Check if access token was created----
-        if login_result[0] == False:
-            break
+        if not login_result[0]:
+            assert False
         elif login_result[1] is not None:
-            assert login_result[0] == True
-
+            assert login_result[0]
         session_result = db_session.query(
             models.login_session.id
         ).filter(models.login_session.access_token == login_result[1]).first()

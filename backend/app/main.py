@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Request, Response, Depends
+from fastapi import FastAPI
 from fastapi.responses import JSONResponse, RedirectResponse
 from dotenv import load_dotenv
 
