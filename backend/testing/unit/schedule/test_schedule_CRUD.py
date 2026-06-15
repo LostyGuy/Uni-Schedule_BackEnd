@@ -39,54 +39,7 @@ def database_setup(db_session):
     db_session.flush()
     
 
-def roles_for_setup() -> list[dict]:
-    """
-    Create and return role objects for test database seeding.
-    
-    Returns two predefined roles: an 'owner' role with ID 1 and a 'user' role with ID 2.
-    
-    Returns:
-    	tuple: A tuple containing two models.roles objects (owner_role, user_role)
-    """
-    admin_role = models.roles(
-        role_id = 1,
-        name = 'owner',
-        description = 'none',
-    )
-    user_role = models.roles(
-        role_id = 2,
-        name = 'user',
-        description = 'none',
-    )
-    return admin_role, user_role
-        
-def users_credentials_for_setup() -> list[dict]:
-    """
-    Create test user records for database seeding in unit tests.
-    
-    Returns:
-        A tuple of two user model instances with test credentials and hashed passwords.
-    """
-    
-    new_user_John = models.user(
-        username = 'Havent seen anything',
-        email = 'johndoe@mail.com',
-        hashed_password = user_CRUD.hash_password('to_be_hashed', hash_salt),
-        created_at = current_time(),
-        policy_agreement = True,
-        lastly_signed_in_on = current_time(),
-        role = 2,
-    )
-    new_user_Tom = models.user(
-        username = 'tom',
-        email = 'tomprince@mail.com',
-        hashed_password = user_CRUD.hash_password('$ome_cr@zy_p@$$', hash_salt),
-        created_at = current_time(),
-        policy_agreement = True,
-        lastly_signed_in_on = current_time(),
-        role = 2,
-    )
-    return new_user_John, new_user_Tom
+
 
 def schedule_and_events_for_setup():
     raise NotImplementedError

@@ -22,7 +22,9 @@ def Client():
         TestClient: A test client for making HTTP requests to the FastAPI application.
     """
     main.app.dependency_overrides[connection.get_db] = Testdb.get_db
-    return TestClient(main.app)
+    with TestClient(main.app) as client:
+        yield client
+    main.app.dependency_overrides.pop(connection.get_db, None)
 
 #----User Related----
 def test_user_login_request(Client):

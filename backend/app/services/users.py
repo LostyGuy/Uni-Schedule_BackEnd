@@ -1,3 +1,8 @@
+import backend.connection.models as models
+from backend.logging import current_function, log_info
+from backend.timestamps import current_time
+from backend.app.services.user.user_CRUD import hash_password
+
 def new_user_register(username: str, email: str, password: str, db_session, policy_agreement: bool = False, role: int = 1) -> bool:
     '''
     Makes query and performs INSERT operation to add user to the database.
@@ -8,7 +13,7 @@ def new_user_register(username: str, email: str, password: str, db_session, poli
             new_user = models.user(
                 username = username,
                 email = email,
-                hashed_password = hash_password(password, hash_salt),
+                hashed_password = hash_password(password),
                 created_at = current_time(),
                 policy_agreement = policy_agreement,
                 lastly_signed_in_on = current_time(),

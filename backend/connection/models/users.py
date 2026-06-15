@@ -40,7 +40,7 @@ class User(Base):
     is_active: bool = Column(
         Boolean,
         nullable= True,
-        default= False,
+        server_default= False,
     )
     last_active: DateTime = Column(
         DateTime(timezone= True),

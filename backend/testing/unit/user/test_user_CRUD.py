@@ -1,26 +1,24 @@
 from typing import Annotated
+import os
 
 import pytest
 
 import backend.app.services.user.user_CRUD as user_CRUD
-import backend.models.models as models
+import backend.connection.models as models
 from backend.connection.connection import Base
 from backend.timestamps import current_time
 from backend.logging import log_info_test_space, current_function
 from backend.testing.unit.test_database import Testengine, TestSessionLocal
-from backend.hidden.pass_hashing import algorithm, hash_salt, hashed_answer_1, hashed_answer_2, hashed_answer_3 # type: ignore
-from backend.hidden.jwt_setting import TOKEN_LIFESPAN
 from backend.security.jwt_tokens import jwt_validation
-
 
 #----Database and Session Setup----
 @pytest.fixture
 def db_session():
     """
-    Provide an isolated test database session with automatic cleanup.
+    Create an isolated SQLAlchemy session for transactional testing.
     
     Yields:
-        Session: A SQLAlchemy test session with transaction isolation for test execution.
+    	Session: A SQLAlchemy session with transactional isolation and automatic rollback after test completion
     """
     connection = Testengine.connect()
     transaction = connection.begin()
@@ -30,8 +28,71 @@ def db_session():
         yield session
     finally:
         session.close()
-        transaction.commit()
+        transaction.rollback()
         connection.close()
+
+@pytest.fixture(autouse=True)
+def database_setup(db_session):
+    users = users_credentials_for_setup()
+    roles = roles_for_setup()
+    db_session.add_all(roles)
+    db_session.flush()
+    db_session.add_all(users)
+    db_session.flush()
+
+def users_credentials_for_setup() -> list[dict]:
+    """
+    Create test user records for database seeding in unit tests.
+    
+    Returns:
+        A tuple of two user model instances with test credentials and hashed passwords.
+    """
+    models.us
+    new_user_John = models.users.User(
+        name = 'John',
+        surname = 'Doe',
+        username = 'Havent seen anything',
+        email = 'johndoe@mail.com',
+        hashed_password = user_CRUD.hash_password('to_be_hashed'),
+        role_id = 2,
+        policy_agreement = True,
+        
+    )
+    new_user_Tom = models.users.User(
+        name = 'Tom',
+        surname = 'Prince',
+        username = 'tom',
+        email = 'tomprince@mail.com',
+        hashed_password = user_CRUD.hash_password('$ome_cr@zy_p@$$'),
+        role_id = 2,
+        policy_agreement = True,
+    )
+    return new_user_John, new_user_Tom
+
+def roles_for_setup() -> list[dict]:
+    """
+    Create and return role objects for test database seeding.
+    
+    Returns two predefined roles: an 'owner' role with ID 1 and a 'user' role with ID 2.
+    
+    Returns:
+    	tuple: A tuple containing two models.roles objects (owner_role, user_role)
+    """
+    admin_role = models.auth.Role(
+        role_id = 1,
+        name = 'owner',
+        description = 'none',
+        can_manage_events = True,
+        can_invite_members = True,
+    )
+    user_role = models.auth.Role(
+        role_id = 2,
+        name = 'user',
+        description = 'none',
+        can_manage_events = False,
+        can_invite_members = False,
+    )
+    return admin_role, user_role
 
 #!----Tests----
 def test_is_user_in_database(db_session):
@@ -44,10 +105,10 @@ def test_is_user_in_database(db_session):
     for user in users_credentials_for_setup():
         try:
             result = db_session.query(
-                models.user.username,
-                models.user.email,
-                models.user.policy_agreement,
-            ).filter(models.user.username == user.username).first()
+                models.users.User.username,
+                models.users.User.email,
+                models.users.User.policy_agreement,
+            ).filter(models.users.User.username == user.username).first()
             log_info_test_space(current_function, user.username)
         except Exception as e:
             log_info_test_space(current_function, e)
@@ -64,6 +125,8 @@ def test_new_user_register(db_session):
     '''This test takes user data and puts it into CRUD to register the user into system'''
 
     register_Emily = user_CRUD.new_user_register(
+        name = 'Emily',
+        surname = 'Mayer',
         username = 'EmilyMayer',
         email = 'emilyheartbreaker@mail.to',
         password = 'my_heart_is_broken',
@@ -79,9 +142,9 @@ def test_user_login(db_session):
     #----Check Login----
     for user in users_credentials_for_setup():
         login_result = user_CRUD.user_login(
-            email= user.email,
-            hashed_password= user.hashed_password,
-            db_session= db_session,
+            email = user.email,
+            hashed_password = user.hashed_password,
+            db_session = db_session,
         )
     #----Check if access token was created----
         if not login_result[0]:
@@ -89,14 +152,14 @@ def test_user_login(db_session):
         elif login_result[1] is not None:
             assert login_result[0]
         session_result = db_session.query(
-            models.login_session.id
-        ).filter(models.login_session.access_token == login_result[1]).first()
+            models.user_session.user_session.user_session_id
+        ).filter(models.user_session.user_session.access_token == login_result[1]).first()
 
         assert session_result is not None
     #----Check Cookie----
 
 def test_user_logout(db_session):
-    ''' '''
+    ''' BAD '''
 
     #----Log In----
     for user in users_credentials_for_setup():

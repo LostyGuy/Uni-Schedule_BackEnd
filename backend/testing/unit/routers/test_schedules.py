@@ -16,7 +16,9 @@ import backend.testing.unit.test_database as Testdb
 @pytest.fixture
 def Client():
     main.app.dependency_overrides[connection.get_db] = Testdb.get_db
-    return TestClient(main.app)
+    with TestClient(main.app) as client:
+        yield client
+    main.app.dependency_overrides.pop(connection.get_db, None)
 
 #----Schedule Related----
 @pytest.mark.skip

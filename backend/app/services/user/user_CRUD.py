@@ -1,7 +1,8 @@
+import os
+
 from backend.connection.models import models
 from backend.timestamps import current_time
 from backend.logging import log_info, current_function
-from backend.hidden.pass_hashing import algorithm, hash_salt
 from backend.security.jwt_tokens import create_jwt
 
 
@@ -18,7 +19,7 @@ def new_user_register(username: str, email: str, password: str, db_session, poli
             new_user = models.user(
                 username = username,
                 email = email,
-                hashed_password = hash_password(password, hash_salt),
+                hashed_password = hash_password(password),
                 created_at = current_time(),
                 policy_agreement = policy_agreement,
                 lastly_signed_in_on = current_time(),
@@ -34,7 +35,7 @@ def new_user_register(username: str, email: str, password: str, db_session, poli
     else:
         return False
 
-def hash_password(password, hash_salt) -> str:
+def hash_password(password, hash_salt = os.getenv("HASH_SALT")) -> str:
     return algorithm((password + hash_salt).encode()).hexdigest()
 
 def user_login(email:str, hashed_password:str, db_session) -> bool:
@@ -47,11 +48,11 @@ def user_login(email:str, hashed_password:str, db_session) -> bool:
     	(True, access_token) if the email and hashed_password match a user in the database, (False, None) otherwise
     """
     correct_credentials: list[object] = db_session.query(
-        models.user.id_user,
-        models.user.email,
-        models.user.hashed_password,
+        models.users.User.user_id,
+        models.users.User.email,
+        models.users.User.hashed_password,
     ).filter(
-        models.user.email == email,
+        models.users.User.email == email,
     ).first()
     if correct_credentials is not None and correct_credentials.email == email and correct_credentials.hashed_password == hashed_password:
         login_data: bool =  True
