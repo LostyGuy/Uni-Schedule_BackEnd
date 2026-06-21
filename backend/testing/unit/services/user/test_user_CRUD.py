@@ -178,9 +178,9 @@ def test_user_logout(db_session):
         status: list[any] = db_session.query(
         models.login_session.status,
         ).filter(
-            models.login_session.access_token == access_token,
+            models.user_session.User_session.acess_token == access_token,
         ).order_by(
-            models.login_session.issued_at.desc()
+            models.user_session.User_session.issued_at.desc()
         ).first()
 
         assert result == True

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, BigInteger, String, Boolean, DateTime, ForeignKey, func
+from sqlalchemy import Column, BigInteger, String, Boolean, DateTime, ForeignKey, text, func
 
 from backend.connection.connection import Base
 
@@ -35,12 +35,12 @@ class User(Base):
         BigInteger,
         ForeignKey("roles.role_id"),
         nullable= False,
-        server_default= 2,
+        server_default= text("2"),
     )
     is_active: bool = Column(
         Boolean,
         nullable= True,
-        server_default= False,
+        server_default= text("false"),
     )
     last_active: DateTime = Column(
         DateTime(timezone= True),
@@ -50,4 +50,8 @@ class User(Base):
         DateTime(timezone= True),
         nullable= False,
         server_default= func.now(),
+    )
+    policy_agreement: bool = Column(
+        Boolean,
+        nullable= False,
     )

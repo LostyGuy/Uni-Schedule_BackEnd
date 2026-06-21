@@ -3,6 +3,12 @@ from fastapi.responses import JSONResponse
 
 router = APIRouter()
 
+#! ---- Possible User interactions ----
+#? Create, Update, Delete User
+#? Get User Profile
+#? Get, Post User Setting - another router?
+#? 
+
 @router.post("/register", response_class=JSONResponse)
 async def user_register_request():
     """
@@ -20,5 +26,17 @@ async def get_user_profile():
     """
     raise NotImplementedError
 
-#delete
-#update
+@router.post("/update", response_class=JSONResponse)
+async def user_update_request():
+    """
+    Register a new user account.
+    """
+    raise NotImplementedError
+
+@router.post("/delete", response_class=JSONResponse)
+async def user_delete_request():
+    """
+    Register a new user account.
+    """
+    raise NotImplementedError
+

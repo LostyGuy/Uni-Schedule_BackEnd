@@ -1,13 +1,14 @@
 import jwt
-from backend.private_logic.jwt import SECRET_KEY, ALGORITHM, TOKEN_LIFESPAN
+
+import uuid
+
 from backend.timestamps import current_time
 from backend.logging import current_function, log_info
-import uuid
 
 
 def create_jwt(user_id: int, issue_endpoint: str, for_endpoint: str) -> str:
     payload = {
-        'iss' : 'uni-schedule/api' ,
+        'iss' : 'uni-schedule/api/v1/loged' ,
         'sub' : int(user_id),
         'aud' : '/loged' ,
         'exp' : str(current_time()) ,

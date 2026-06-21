@@ -8,7 +8,7 @@ async def user_login_request():
     """
     Handle user login requests.
     
-    This endpoint is not yet implemented.
+    Note: This endpoint is not yet implemented.
     """
     raise NotImplementedError
 
@@ -20,5 +20,7 @@ async def user_login_request():
 async def logout_request():
     """
     Handle logout requests.
+
+    Note: This endpoint is not yet implemented.
     """
     raise NotImplementedError

@@ -4,6 +4,7 @@ from backend.connection.models import models
 from backend.timestamps import current_time
 from backend.logging import log_info, current_function
 from backend.security.jwt_tokens import create_jwt
+from hashlib import sha256 as algorithm
 
 
 

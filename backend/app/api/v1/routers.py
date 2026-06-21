@@ -1,0 +1,20 @@
+from fastapi import APIRouter
+from backend.app.routers import auth_login, auth_qr, users, schedules, groups, notifications
+
+router = APIRouter(prefix="/api/v1")
+
+#* ----AUTHORIFICATION----
+router.include_router(auth_login.router, prefix="/auth/login")
+router.include_router(auth_qr.router, prefix="/auth/qr")
+
+#* ----USERS----
+router.include_router(users.router, prefix="/users")
+
+#* ----SCHEDULES----
+router.include_router(schedules.router, prefix="/schedules")
+
+#* ----GROUPS----
+router.include_router(groups.router, prefix="/groups")
+
+#* ----NOTIFICATIONS----
+router.include_router(notifications.router, prefix="/notifications")

@@ -4,7 +4,7 @@ from backend.logging import current_function, log_info
 
 def create_schedule(title: str, description: str, creator: int, db_session) -> bool:
     try:
-        schedule_query = models.schedule(
+        schedule_query = models.schedules.Schedule(
         title = title,
         description = description,
         created_by = creator,

@@ -3,6 +3,12 @@ from fastapi.responses import JSONResponse
 
 router = APIRouter()
 
+#! ---- Possible Schedule interactions ----
+#? Create, Update, Delete Schedule
+#? Get Schedule
+#? Get, Post Schedule Setting - another router?
+#? 
+
 @router.put("/calendar_update_request", response_class=JSONResponse)
 async def changes_to_calendar():
     """
