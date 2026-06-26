@@ -2,11 +2,11 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse, RedirectResponse
 from dotenv import load_dotenv
 
-from backend.app.api.v1.routers import router as v1_router
+from backend.app.api.v1.routers import router
 load_dotenv()
 
 app = FastAPI()
-app.include_router(v1_router)
+app.include_router(router)
 
 #----For Web----
 @app.get("/", response_class=JSONResponse)

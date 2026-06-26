@@ -9,7 +9,7 @@ from backend.connection.connection import Base
 from backend.timestamps import current_time
 from backend.logging import log_info_test_space, current_function
 from backend.testing.unit.test_database import Testengine, TestSessionLocal
-from backend.security.jwt_tokens import jwt_validation
+from backend.security.tokens import jwt_validation
 
 #----Database and Session Setup----
 @pytest.fixture
@@ -124,7 +124,7 @@ def test_is_user_in_database(db_session):
 def test_new_user_register(db_session):
     '''This test takes user data and puts it into CRUD to register the user into system'''
 
-    register_Emily = user_CRUD.new_user_register(
+    register_Emily = user_CRUD.user_register(
         name = 'Emily',
         surname = 'Mayer',
         username = 'EmilyMayer',
@@ -152,8 +152,8 @@ def test_user_login(db_session):
         elif login_result[1] is not None:
             assert login_result[0]
         session_result = db_session.query(
-            models.user_session.user_session.user_session_id
-        ).filter(models.user_session.user_session.access_token == login_result[1]).first()
+            models.refresh_tokens.user_session.user_session_id
+        ).filter(models.refresh_tokens.user_session.access_token == login_result[1]).first()
 
         assert session_result is not None
     #----Check Cookie----
@@ -178,9 +178,9 @@ def test_user_logout(db_session):
         status: list[any] = db_session.query(
         models.login_session.status,
         ).filter(
-            models.user_session.User_session.acess_token == access_token,
+            models.refresh_tokens.User_session.acess_token == access_token,
         ).order_by(
-            models.user_session.User_session.issued_at.desc()
+            models.refresh_tokens.User_session.issued_at.desc()
         ).first()
 
         assert result == True

@@ -33,50 +33,45 @@ class Role(Base):
         server_default= func.now(),
     )
 
-class Jwt(Base):
-    __tablename__ = "jwt"
+class Refresh_tokens(Base):
+    __tablename__ = "refresh_tokens"
 
-    jwt_id: int = Column(
+    refresh_token_id = Column(
         BigInteger,
         primary_key= True,
         nullable= False,
         autoincrement= True,
     )
-    user_id: int = Column(
+    user_id = Column(
         BigInteger,
         nullable= False,
     )
-    access_token: str = Column(
+    token_hash = Column(
         String,
         nullable= False,
     )
-    issued_at: DateTime = Column(
+    expire_at = Column(
         DateTime,
         nullable= False,
     )
-    valid_till: DateTime = Column(
+    is_revoked = Column(
+        String,
+        nullable= False,
+    )
+    device_name = Column(
+        String,
+        nullable= False,
+    )
+    ip_address = Column(
+        String,
+        nullable= False,
+    )
+    last_used_at = Column(
         DateTime,
         nullable= False,
     )
-    issued_from_endpoint: str = Column(
-        String,
-        nullable= False,
-    )
-    valid_for_endpoint: str = Column(
-        String,
-        nullable= False,
-    )
-    status: str = Column(
-        String,
-        nullable= False,
-    )
-    jwt_id: int = Column(
-        BigInteger,
-        nullable= False,
-    )
-    created_at: DateTime = Column(
+    created_at = Column(
         DateTime(timezone= True),
         nullable= False,
         server_default= func.now(),
     )
-

@@ -3,8 +3,8 @@ from .schedules import Schedule, Event
 from .groups import Group, GroupMember
 from .notifications import Notification, Invite
 from .auth import Role
-from .colours import Color
-from .user_session import UserSession
+from .colors import Color
+from .refresh_tokens import RefreshToken
 
 __all__ = [
     "User",
@@ -16,5 +16,5 @@ __all__ = [
     "Invite",
     "Role",
     "Color",
-    "UserSession",
+    "RefreshToken",
 ]
