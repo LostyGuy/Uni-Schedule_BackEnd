@@ -12,6 +12,11 @@ def log_info(*message) -> None:
     log.info(20*'-')
     log.info(message)
     log.info(20*'-')
+
+def log_error(*message) -> None:
+    log.error(20*'-')
+    log.error(message)
+    log.error(20*'-')
     
 def log_info_test_space(*message) -> None:
     log.info(20*'-')

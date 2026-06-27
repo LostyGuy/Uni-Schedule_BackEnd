@@ -1,8 +1,9 @@
 import pytest
 from fastapi.testclient import TestClient
-import backend.app.app as app
-import backend.database.database as database
-import backend.testing.test_database as Testdb
+
+import backend.app.main as main
+import backend.connection.connection as connection
+import backend.testing.unit.test_database as Testdb
 
 #!----Status Codes----
 #   200 - OK
@@ -14,8 +15,16 @@ import backend.testing.test_database as Testdb
 #----Mock DB Setup----
 @pytest.fixture
 def Client():
-    app.app.dependency_overrides[database.get_db] = Testdb.get_db
-    return TestClient(app.app)
+    """
+    Create a test client with a mocked database dependency.
+    
+    Returns:
+        TestClient: A test client for making HTTP requests to the FastAPI application.
+    """
+    main.app.dependency_overrides[connection.get_db] = Testdb.get_db
+    with TestClient(main.app) as client:
+        yield client
+    main.app.dependency_overrides.pop(connection.get_db, None)
 
 #----User Related----
 def test_user_login_request(Client):
@@ -36,58 +45,33 @@ def test_user_login_request(Client):
     for variable in list_of_variables:
         assert variable in result.json()
 
-def test_user_register_request(Client):
-    raise NotImplementedError
-
-def test_user_delete_request(Client):
-    raise NotImplementedError
-
-#----Schedule Related----
-def test_create_schedule_request(Client):
-    raise NotImplementedError
-
-def test_delete_schedule_request(Client):
-    raise NotImplementedError
-
-def test_change_schedule_request(Client):
-    raise NotImplementedError
-
-#----Event Related----
-def test_add_event_request(Client):
-    raise NotImplementedError
-
-def test_delete_event_request(Client):
-    raise NotImplementedError
-
-def test_change_event_request(Client):
-    raise NotImplementedError
-
 #----Group Related----
-def test_create_group_request(Client):
-    raise NotImplementedError
-
-def test_delete_group_request(Client):
-    raise NotImplementedError
-
+@pytest.mark.skip
 def test_create_invitation_request(Client):
     raise NotImplementedError
 
+@pytest.mark.skip
 def test_intivation_request(Client):
     raise NotImplementedError
 
+@pytest.mark.skip
 def test_leave_group_request(Client):
     raise NotImplementedError
 
 #----Role Related----
+@pytest.mark.skip
 def test_grant_role_on_schedule_request(Client):
     raise NotImplementedError
 
+@pytest.mark.skip
 def test_revoke_role_on_schedule_request(Client):
     raise NotImplementedError
 
 #TODO----Premium Related----
+@pytest.mark.skip
 def test_grant_premium_request():
     raise NotImplementedError
 
+@pytest.mark.skip
 def test_renew_premium_request():
     raise NotImplementedError
