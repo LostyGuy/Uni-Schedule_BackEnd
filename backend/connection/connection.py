@@ -3,10 +3,16 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 from backend.logging import log_info
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-if DATABASE_URL is None:
-    log_info("Database URL is missing in connection.py")
-    raise RuntimeError("DATABASE_URL environment variable is required")
+
+def _get_environmental_variables(name: str) -> str:
+    
+    value = os.getenv(name)
+    if not value:
+        raise RuntimeError(f"Required environmental value '{name}' is not set")
+    
+    return value
+
+DATABASE_URL = _get_environmental_variables("DATABASE_URL")
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)

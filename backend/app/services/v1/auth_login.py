@@ -10,7 +10,7 @@ async def user_login(email:str, password:str, device_name: str, ip_address: str,
     Authenticates a user by email and hashed password, and creates a login session on successful verification.
     
     Returns:
-    	(True, access_token) if the email and hashed_password match a user in the database, (False, None) otherwise
+    	(access_token, refresh_token) if the email and hashed_password match a user in the database, (None) otherwise
     """
     
     try:
@@ -26,18 +26,23 @@ async def user_login(email:str, password:str, device_name: str, ip_address: str,
         
     if is_entry_present[0]:
         
-        client_access_token = await tokens.create_refresh_token(
+        raw_refresh_token = await tokens.create_refresh_token(
             user_id = is_entry_present[0],
             device_name = device_name,
             ip_address = ip_address,
             db_session = db_session,
         )
+
+        client_access_token = await tokens.create_access_token(is_entry_present[0])
         
-        return client_access_token
+        return {
+            "access_token": client_access_token,
+            "refresh_token": raw_refresh_token,
+        }
     
     else:
         
-        return ""
+        return None
     
     
 def user_log_out(db_session, access_token: str = None):

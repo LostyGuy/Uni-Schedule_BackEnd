@@ -5,7 +5,7 @@ from backend.connection.connection import get_db as db_session
 
 router = APIRouter()
 
-@router.post("/login", response_class=JSONResponse, Depends(db_session))
+@router.post("/login", response_class=JSONResponse)
 async def user_login_request(username: str, password: str, device_name: str, ip_address: str, db_session):
     """
     Handle user login requests.
