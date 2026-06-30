@@ -1,8 +1,7 @@
-# import pytest
-# from backend.testing.unit.test_database import Testengine, TestSessionLocal
+import pytest
 
 
-# #----Database and Session Setup----
+#----Database and Session Setup----
 # @pytest.fixture
 # def db_session():
 #     """
@@ -23,36 +22,36 @@
 #         transaction.rollback()
 #         connection.close()
 
-# #!----Tests----
+#!----Tests----
 
-# #----Groups----
-# def test_create_group():
-#     raise NotImplementedError
+#----Groups----
+def test_create_group():
+    raise NotImplementedError
 
-# def test_remove_group():
-#     raise NotImplementedError
+def test_remove_group():
+    raise NotImplementedError
 
-# def test_join_group():
-#     raise NotImplementedError
+def test_join_group():
+    raise NotImplementedError
 
-# def test_leave_group():
-#     raise NotImplementedError
+def test_leave_group():
+    raise NotImplementedError
 
-# def test_remove_user_from_group():
-#     raise NotImplementedError
-
-
-# #----Group Permission----
-# def test_grant_editing_on_group_schedule():
-#     raise NotImplementedError
-
-# def test_revoke_editing_on_group_schedule():
-#     raise NotImplementedError
+def test_remove_user_from_group():
+    raise NotImplementedError
 
 
-# #----Group Invitation----
-# def test_generate_join_QRcode():
-#     raise NotImplementedError
+#----Group Permission----
+def test_grant_editing_on_group_schedule():
+    raise NotImplementedError
 
-# def test_generate_join_url():
-#     raise NotImplementedError
+def test_revoke_editing_on_group_schedule():
+    raise NotImplementedError
+
+
+#----Group Invitation----
+def test_generate_join_QRcode():
+    raise NotImplementedError
+
+def test_generate_join_url():
+    raise NotImplementedError
