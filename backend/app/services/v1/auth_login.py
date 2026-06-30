@@ -5,7 +5,7 @@ import backend.security.tokens as tokens
 from backend.security.hashing import hash_string
 
 
-async def user_login(email:str, password:str, device_name: str, ip_address: str, db_session) -> str:
+def user_login(email:str, password:str, device_name: str, ip_address: str, db_session) -> str:
     """
     Authenticates a user by email and hashed password, and creates a login session on successful verification.
     
@@ -20,21 +20,29 @@ async def user_login(email:str, password:str, device_name: str, ip_address: str,
             models.User.email == email,
             models.User.hashed_password == hash_string(password)
         ).first()
-    except:
+    except Exception:
         #---- Get most possible errors and show them to user in a friendly way ----#
-        ...
+        return {
+            "access_token": None,
+            "refresh_token": None,
+        }
         
-    if is_entry_present[0]:
-        
-        raw_refresh_token = await tokens.create_refresh_token(
-            user_id = is_entry_present[0],
-            device_name = device_name,
-            ip_address = ip_address,
-            db_session = db_session,
-        )
+    if is_entry_present is not None:
+        if is_entry_present[0]:
+            raw_refresh_token = tokens.create_refresh_token(
+                user_id = is_entry_present[0],
+                device_name = device_name,
+                ip_address = ip_address,
+                db_session = db_session,
+            )
 
-        client_access_token = await tokens.create_access_token(is_entry_present[0])
-        
+            client_access_token = tokens.create_access_token(is_entry_present[0])
+            
+            return {
+                "access_token": client_access_token,
+                "refresh_token": raw_refresh_token,
+            }
+
         return {
             "access_token": client_access_token,
             "refresh_token": raw_refresh_token,
@@ -42,7 +50,10 @@ async def user_login(email:str, password:str, device_name: str, ip_address: str,
     
     else:
         
-        return None
+        return {
+            "access_token": None,
+            "refresh_token": None,
+        }
     
     
 def user_log_out(db_session, access_token: str = None):

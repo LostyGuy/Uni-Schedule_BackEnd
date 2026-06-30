@@ -23,11 +23,11 @@ def user_register(name: str, surname: str, username: str, email: str, password: 
             )
             db_session.add(new_user)
             db_session.commit()
-            return True
         except Exception as e:
             db_session.rollback()
             log_error("User Creation Error", e)
             return False
+        return True
     else:
         return False
     

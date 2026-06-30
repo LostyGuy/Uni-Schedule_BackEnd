@@ -1,4 +1,4 @@
-from sqlalchemy import Column, BigInteger, String, DateTime, Boolean, ForeignKey, func, JSON
+from sqlalchemy import Column, BigInteger, String, DateTime, Boolean, ForeignKey, func, JSON, text
 
 from backend.connection.connection import Base
 
@@ -27,10 +27,12 @@ class RefreshToken(Base):
     is_revoked = Column(
         Boolean,
         nullable= False,
+        server_default= text("false"),
     )
     is_active = Column(
         Boolean,
         nullable= False,
+        server_default= text("false"),
     )
     device_name = Column(
         String,
@@ -43,6 +45,7 @@ class RefreshToken(Base):
     last_used_at = Column(
         DateTime(timezone= True),
         nullable= False,
+        server_default= func.now(),
     )
     created_at = Column(
         DateTime(timezone= True),
