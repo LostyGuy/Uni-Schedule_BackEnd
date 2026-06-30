@@ -43,4 +43,9 @@ jobs:
     - name: Test with pytest
       run: pytest
       env:
+        #---- HASH_SALT and SECRET_KEY must be 32bit long strings example below ----
+        ALGORITHM: HS512
         DATABASE_URL: postgresql://postgres:postgres@localhost:15432/postgres
+        HASH_SALT: p7K5wN3mX9r2bV6tQ1z8fG4jL0eC5vYd
+        SECRET_KEY: 8xM2qB9vK1fL6tZ4wP3nG7jR0eC5sY2b
+        
