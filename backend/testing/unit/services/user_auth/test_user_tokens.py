@@ -2,12 +2,16 @@ import pytest
 from sqlalchemy import select
 import secrets
 
+from datetime import timedelta
+import jwt
+
 import backend.connection.models as models
 import backend.security.tokens as token
 from backend.security.hashing import hash_string
 from backend.logging import log_error
 from backend.testing.conftest import EXISTING_USERS
 from backend.timestamps import current_time
+from backend.config import get_environmental_variables
 
 
 def test_create_refresh_token(db_session):
@@ -134,7 +138,6 @@ def test_revoke_refresh_token(db_session):
     assert is_revoked == True
 
 
-
 def test_revoke_all_refresh_tokens(db_session):
 
     max_iter: int = 4
@@ -185,10 +188,31 @@ def test_revoke_all_refresh_tokens(db_session):
     for entry in are_revoked:
         assert entry == True
 
-@pytest.mark.skip
-def test_create_access_token(db_session):
-    raise NotImplementedError
 
-@pytest.mark.skip
-def test_on_password_change(db_session):
-    raise NotImplementedError
+def test_create_access_token(db_session):
+
+    SECRET_KEY = get_environmental_variables("SECRET_KEY")
+    ALGORITHM = get_environmental_variables("ALGORITHM")
+
+    Toms_id = db_session.execute(
+        select(
+            models.User.user_id
+        ).where(
+            models.User.email == EXISTING_USERS[0]["email"]
+        )
+    ).scalar_one()
+
+    assert Toms_id is not None
+    
+    access_token = token.create_access_token(user_id= Toms_id)
+
+    payload = jwt.decode(
+        jwt= access_token,
+        key= SECRET_KEY,
+        algorithms= [ALGORITHM],
+    )
+
+    assert payload is not None
+    assert type(payload['iat']) is int 
+    assert type(payload['exp']) is int 
+

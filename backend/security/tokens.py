@@ -7,13 +7,12 @@ from sqlalchemy import select, update
 
 import backend.connection.models as models 
 from backend.security.hashing import hash_string
-from backend.timestamps import current_time
+from backend.timestamps import current_time, current_timestamp
 from backend.logging import current_function, log_info, log_error
 from backend.config import get_environmental_variables
 
 REFRESH_LIFESPAN = timedelta(days=30)
 ACCESS_LIFESPAN = timedelta(minutes=15)
-
 SECRET_KEY = get_environmental_variables("SECRET_KEY")
 ALGORITHM = get_environmental_variables("ALGORITHM")
 
@@ -103,11 +102,13 @@ def revoke_all_refresh_tokens(user_id: int, db_session) -> None:
 
 
 def create_access_token(user_id: int) -> str:
+
+    timestamp = current_timestamp()
     
     payload = {
         "sub": str(user_id),
-        "iat": current_time(),
-        "exp": current_time() + ACCESS_LIFESPAN,
+        "iat": int(timestamp),
+        "exp": int(timestamp + int(ACCESS_LIFESPAN.total_seconds())),
     }
     
     return jwt.encode(
