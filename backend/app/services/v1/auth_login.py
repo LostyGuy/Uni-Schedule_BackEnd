@@ -11,7 +11,7 @@ def user_login(email:str, password:str, device_name: str, ip_address: str, db_se
     Authenticates a user by email and hashed password, and creates a login session on successful verification.
     
     Returns:
-    	(access_token, refresh_token) if the email and hashed_password match a user in the database, (None) otherwise
+    	(access_token, refresh_token) if the email and hashed_password match a user in the database, (None, None) otherwise
     """
     
     try:
@@ -28,30 +28,62 @@ def user_login(email:str, password:str, device_name: str, ip_address: str, db_se
             "access_token": None,
             "refresh_token": None,
         }
-        
-    if is_entry_present is not None:
-        if is_entry_present[0]:
-            raw_refresh_token = tokens.create_refresh_token(
-                user_id = is_entry_present[0],
-                device_name = device_name,
-                ip_address = ip_address,
-                db_session = db_session,
-            )
 
-            client_access_token = tokens.create_access_token(is_entry_present[0])
+    #TODO:
+    #---- Rewrite that piece of code. Looks overcomplicated and has security holes ----#
+    # if is_entry_present is not None:
+    #     if is_entry_present[0]:
+    #         raw_refresh_token = tokens.create_refresh_token(
+    #             user_id = is_entry_present[0],
+    #             device_name = device_name,
+    #             ip_address = ip_address,
+    #             db_session = db_session,
+    #         )
+    #         assert raw_refresh_token is not None, "Failed to create refresh token"
+
+    #         client_access_token = tokens.create_access_token(is_entry_present[0])
             
+    #         return {
+    #             "access_token": client_access_token,
+    #             "refresh_token": raw_refresh_token,
+    #         }
+
+    #     return {
+    #         "access_token": None,
+    #         "refresh_token": None,
+    #     }
+    
+    # else:
+        
+    #     return {
+    #         "access_token": None,
+    #         "refresh_token": None,
+    #     }
+
+    #*---- New piece of code ---- *#
+    if is_entry_present[0]:
+
+        raw_refresh_token = tokens.create_refresh_token(
+            user_id = is_entry_present[0],
+            device_name = device_name,
+            ip_address = ip_address,
+            db_session = db_session,
+        )
+        if raw_refresh_token is None:
             return {
-                "access_token": client_access_token,
-                "refresh_token": raw_refresh_token,
+                "access_token": None,
+                "refresh_token": None,
             }
 
+        client_access_token = tokens.create_access_token(is_entry_present[0])
+                    
         return {
-            "access_token": None,
-            "refresh_token": None,
+            "access_token": client_access_token,
+            "refresh_token": raw_refresh_token,
         }
-    
+
     else:
-        
+
         return {
             "access_token": None,
             "refresh_token": None,

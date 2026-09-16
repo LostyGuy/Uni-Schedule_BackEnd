@@ -99,6 +99,8 @@ def revoke_all_refresh_tokens(user_id: int, db_session) -> None:
         db_session.commit()
     except Exception as e:
         log_error("revoke_all_refresh_tokens", e)
+        db_session.rollback()
+        raise
 
 
 def create_access_token(user_id: int) -> str:
