@@ -1,7 +1,7 @@
 import os
 
 import pytest
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import OperationalError
 from fastapi.testclient import TestClient
@@ -12,6 +12,28 @@ import backend.connection.models as models
 from backend.security.hashing import hash_string
 
 TEST_DATABASE_URL = "postgresql://postgres:postgres@localhost:15432/postgres"
+
+EXISTING_USERS = [
+        {
+        "email": "johndoe@mail.com",
+        "password": "to_be_hashed",
+        "device_name": "windows10",
+        "ip_address": "255.255.255.254",
+    },
+]
+NONEXISTING_USERS = [
+        {
+    "email": "john.lemon@gmail.com",
+    "password": "heheNOPE1",
+    "device_name": "windows11",
+    "ip_address": "255.255.255.255",
+    },
+]
+
+MIXED_USERS = [
+    EXISTING_USERS[0],
+    NONEXISTING_USERS[0],
+]
 
 engine = create_engine(TEST_DATABASE_URL)
 TestSessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
@@ -25,9 +47,13 @@ except OperationalError:
         returncode=1
     )
 
-
 @pytest.fixture(scope="session", autouse=True)
 def setup_db():
+    #!---- Uncomment this part to truly reset the schemes and database content ----
+    # with engine.begin() as conn:
+    #     conn.execute(text("DROP SCHEMA public CASCADE"))
+    #     conn.execute(text("CREATE SCHEMA public"))
+    #!---- ----
     Base.metadata.create_all(bind=engine)
     session = TestSessionLocal()
     try:
@@ -69,23 +95,23 @@ def users_data() -> list[dict]:
         A tuple of two user model instances with test credentials and hashed passwords.
     """
     new_user_John = models.users.User(
-        name = 'John',
-        surname = 'Doe',
-        username = 'Havent seen anything',
-        email = 'johndoe@mail.com',
-        hashed_password = hash_string('to_be_hashed'),
-        role_id = 2,
-        policy_agreement = True,
+        name= 'John',
+        surname= 'Doe',
+        username= 'Havent seen anything',
+        email= 'johndoe@mail.com',
+        hashed_password= hash_string('to_be_hashed'),
+        role_id= 2,
+        policy_agreement= True,
         
     )
     new_user_Tom = models.users.User(
-        name = 'Tom',
-        surname = 'Prince',
-        username = 'tom',
-        email = 'tomprince@mail.com',
-        hashed_password = hash_string('$ome_cr@zy_p@$$'),
-        role_id = 2,
-        policy_agreement = True,
+        name= 'Tom',
+        surname= 'Prince',
+        username= 'tom',
+        email= 'tomprince@mail.com',
+        hashed_password= hash_string('$ome_cr@zy_p@$$'),
+        role_id= 2,
+        policy_agreement= True,
     )
     return [new_user_John, new_user_Tom]
 
@@ -100,17 +126,17 @@ def roles_data() -> list[dict]:
     	tuple: A tuple containing two models.roles objects (owner_role, user_role)
     """
     admin_role = models.auth.Role(
-        role_id = 1,
-        name = 'owner',
-        description = 'none',
-        can_manage_events = True,
-        can_invite_members = True,
+        role_id= 1,
+        name= 'owner',
+        description= 'none',
+        can_manage_events= True,
+        can_invite_members= True,
     )
     user_role = models.auth.Role(
-        role_id = 2,
-        name = 'user',
-        description = 'none',
-        can_manage_events = False,
-        can_invite_members = False,
+        role_id= 2,
+        name= 'user',
+        description= 'none',
+        can_manage_events= False,
+        can_invite_members= False,
     )
     return [admin_role, user_role]
