@@ -1,7 +1,7 @@
 import os
 
-import backend.connection.models as models
-import backend.security.tokens as tokens
+import backend.connection.v1.models as models
+import backend.app.services.v1.auth_tokens as auth_tokens
 from backend.security.hashing import hash_string
 from sqlalchemy import select, update
 
@@ -63,7 +63,7 @@ def user_login(email:str, password:str, device_name: str, ip_address: str, db_se
     #*---- New piece of code ---- *#
     if is_entry_present is not None and is_entry_present[0]:
 
-        raw_refresh_token = tokens.create_refresh_token(
+        raw_refresh_token = auth_tokens.create_refresh_token(
             user_id = is_entry_present[0],
             device_name = device_name,
             ip_address = ip_address,
@@ -75,7 +75,7 @@ def user_login(email:str, password:str, device_name: str, ip_address: str, db_se
                 "refresh_token": None,
             }
 
-        client_access_token = tokens.create_access_token(is_entry_present[0])
+        client_access_token = auth_tokens.create_access_token(is_entry_present[0])
                     
         return {
             "access_token": client_access_token,

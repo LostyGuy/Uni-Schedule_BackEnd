@@ -1,4 +1,4 @@
-import backend.connection.models as models
+import backend.connection.v1.models as models
 from backend.logging import current_function, log_error
 from backend.timestamps import current_time
 from backend.security.hashing import hash_string

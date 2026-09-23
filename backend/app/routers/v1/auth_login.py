@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 
-from backend.connection.connection import get_db as db_session
+from backend.connection.v1.connection import get_db as db_session
 
 router = APIRouter()
 
