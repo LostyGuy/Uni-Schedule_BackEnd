@@ -1,18 +1,22 @@
-# def create_schedule(title: str, description: str, creator: int, db_session) -> bool:
-#     try:
-#         schedule_query = models.schedules.Schedule(
-#         title = title,
-#         description = description,
-#         created_by = creator,
-#         created_at = current_time(),
-#         last_update_at = current_time(),
-#         )
+from sqlalchemy import select
 
-#         db_session.add(schedule_query)
-#         db_session.commit()
-#         status = True
-#     except Exception as e:
-#         log_info(current_function, e)
-#         db_session.rollback()
-#         status = False
-#     return status
+import backend.app.services.v1 as v1
+import backend.connection.v1.models as models
+
+
+def create_schedule(name: str, description: str, created_by: int, db_session) -> bool:
+
+    group_id: int = v1.create_group()
+    try:
+        new_schedule = models.Schedule(
+            name = name,
+            description = description,
+            status = ...,
+            group_id = group_id,
+            created_by = created_by,
+        )
+
+        db_session.add(new_schedule)
+        db_session.commit()
+    except:
+        db_session.rollback()
