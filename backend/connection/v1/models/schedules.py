@@ -5,7 +5,7 @@ from backend.connection.v1.connection import Base
 
 class Schedule(Base):
     __tablename__ = 'schedules'
-    schedule_id: int = Column(
+    schedule_id = Column(
         BigInteger,
         primary_key= True,
         nullable= False,
@@ -23,9 +23,9 @@ class Schedule(Base):
         String,
         nullable= False,
     )
-    group_id: int = Column(
-        BigInteger,
-        ForeignKey("groups.group_id"),
+    group_id: str = Column(
+        String,
+        ForeignKey("groups.unique_uuid"),
         nullable= True,
     )
     created_by: int = Column(

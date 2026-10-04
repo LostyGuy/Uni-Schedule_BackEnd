@@ -15,15 +15,16 @@ class Group(Base):
         String,
         nullable= False,
     )
-    description: str = Column(
+    unique_uuid: str = Column(
         String,
-        nullable= True,
-    )
-    created_by: int = Column(
-        BigInteger,
-        ForeignKey("users.user_id"),
         nullable= False,
+        unique= True,
     )
+    # created_by: int = Column(
+    #     BigInteger,
+    #     ForeignKey("users.user_id"),
+    #     nullable= False,
+    # )
     created_at: DateTime = Column(
         DateTime(timezone= True),
         nullable= False,

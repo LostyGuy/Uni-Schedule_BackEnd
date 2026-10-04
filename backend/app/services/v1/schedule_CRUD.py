@@ -6,12 +6,12 @@ import backend.connection.v1.models as models
 
 def create_schedule(name: str, description: str, created_by: int, db_session) -> bool:
 
-    group_id: int = v1.create_group()
+    group_id: str = v1.create_group(name= name, db_session= db_session)
     try:
         new_schedule = models.Schedule(
             name = name,
             description = description,
-            status = ...,
+            status = "active",
             group_id = group_id,
             created_by = created_by,
         )

@@ -10,12 +10,6 @@ from backend.logging import log_error
 @pytest.mark.skip
 def test_create_schedule(db_session):
 
-    new_schedule: dict[str, str | int] = {
-        "name" : f"Test_Schedule_of_{user_id}",
-        "description" : "Some desc",
-        "created_by" : user_id
-    }
-
     for index, user_email in enumerate(MIXED_USERS, start= 1):
         if index == 1:
             try:
@@ -26,6 +20,12 @@ def test_create_schedule(db_session):
                         models.User.email == user_email
                     )
                 ).scalar()
+
+                new_schedule: dict[str, str | int] = {
+                    "name" : f"Test_Schedule_of_{user_id}",
+                    "description" : "Some desc",
+                    "created_by" : user_id
+                }
 
                 if v1.create_schedule(
                     name= new_schedule['name'], 
