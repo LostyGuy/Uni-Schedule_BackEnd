@@ -5,31 +5,31 @@ from backend.connection.v1.connection import Base
 
 class Notification(Base):
     __tablename__ = 'notifications'
-    notification_id: int = Column(
+    notification_id = Column(
         BigInteger,
         primary_key= True,
         nullable= False,
         autoincrement= True,
     )
-    event_id: int = Column(
+    event_id = Column(
         BigInteger,
         ForeignKey("events.event_id"),
         nullable= False,
     )
-    message: str = Column(
+    message = Column(
         String,
         nullable= False,
     )
-    destination: JSON = Column(
+    destination = Column(
         JSON,
         nullable= False,
     )
-    created_by: int = Column(
+    created_by = Column(
         BigInteger,
         ForeignKey("users.user_id"),
         nullable= False,
     )
-    created_at: DateTime = Column(
+    created_at = Column(
         DateTime(timezone= True),
         nullable= False,
         server_default= func.now(),
@@ -38,52 +38,52 @@ class Notification(Base):
 
 class Invite(Base):
     __tablename__ = 'invites'
-    invite_id: int = Column(
+    invite_id = Column(
         BigInteger,
         primary_key= True,
         nullable= False,
         autoincrement= True,
     )
-    group_id: int = Column(
+    group_id = Column(
         BigInteger,
         ForeignKey("groups.group_id"),
         nullable= False,
     )
-    role_id: int = Column(
+    role_id = Column(
         BigInteger,
         ForeignKey("roles.role_id"),
         nullable= False,
     )
-    is_active: bool = Column(
+    is_active = Column(
         Boolean,
         nullable= False,
         default= True,
     )
-    invite_code: str = Column(
+    invite_code = Column(
         String,
         nullable= False,
         unique= True,
     )
-    max_uses: int = Column(
+    max_uses = Column(
         BigInteger,
         nullable= True,
     )
-    current_uses: int = Column(
+    current_uses = Column(
         BigInteger,
         nullable= False,
         default= 0,
     )
-    created_by: int = Column(
+    created_by = Column(
         BigInteger,
         ForeignKey("users.user_id"),
         nullable= False,
     )
-    created_at: DateTime = Column(
+    created_at = Column(
         DateTime(timezone= True),
         nullable= False,
         server_default= func.now(),
     )
-    expires_at: DateTime = Column(
+    expires_at = Column(
         DateTime(timezone= True),
         nullable= False,
     )

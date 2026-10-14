@@ -31,3 +31,9 @@ def create_schedule(name: str, description: str, created_by: int, db_session) ->
     except:
         db_session.rollback()
         return False
+
+def update_schedule(name: str, description: str, created_by: int, db_session):
+    
+    
+    
+    raise NotImplementedError

@@ -5,17 +5,17 @@ from backend.connection.v1.connection import Base
 
 class Group(Base):
     __tablename__ = 'groups'
-    group_id: int = Column(
+    group_id = Column(
         BigInteger,
         primary_key= True,
         nullable= False,
         autoincrement= True,
     )
-    name: str = Column(
+    name = Column(
         String,
         nullable= False,
     )
-    unique_uuid: str = Column(
+    unique_uuid = Column(
         String,
         nullable= False,
         unique= True,
@@ -25,7 +25,7 @@ class Group(Base):
     #     ForeignKey("users.user_id"),
     #     nullable= False,
     # )
-    created_at: DateTime = Column(
+    created_at = Column(
         DateTime(timezone= True),
         nullable= False,
         server_default= func.now(),
@@ -34,37 +34,37 @@ class Group(Base):
 
 class GroupMember(Base):
     __tablename__ = 'group_members'
-    group_member_id: int = Column(
+    group_member_id = Column(
         BigInteger,
         primary_key= True,
         nullable= False,
         autoincrement= True,
     )
-    user_id: int = Column(
+    user_id = Column(
         BigInteger,
         ForeignKey("users.user_id"),
         nullable= False,
     )
-    group_id: int = Column(
+    group_id = Column(
         BigInteger,
         ForeignKey("groups.group_id"),
         nullable= False,
     )
-    role_id: int = Column(
+    role_id = Column(
         BigInteger,
         ForeignKey("roles.role_id"),
         nullable= False,
     )
-    joined_at: DateTime = Column(
+    joined_at = Column(
         DateTime(timezone= True),
         nullable= False,
         server_default= func.now(),
     )
-    left_at: DateTime = Column(
+    left_at = Column(
         DateTime(timezone= True),
         nullable= True,
     )
-    created_at: DateTime = Column(
+    created_at = Column(
         DateTime(timezone= True),
         nullable= False,
         server_default= func.now(),

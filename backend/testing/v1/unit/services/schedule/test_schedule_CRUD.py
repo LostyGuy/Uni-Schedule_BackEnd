@@ -7,7 +7,6 @@ import backend.app.services.v1.schedule_CRUD as v1
 from backend.logging import log_error
 
 
-
 def test_create_schedule(db_session):
 
     for index, user_email in enumerate(MIXED_USERS, start= 1):
@@ -27,9 +26,10 @@ def test_create_schedule(db_session):
             }
 
             if result := v1.create_schedule(
-                name= new_schedule['name'], 
-                description= new_schedule['description'], 
-                created_by= new_schedule['created_by'],
+                name= str(new_schedule['name']), 
+                description= str(new_schedule['description']), 
+                created_by= int(new_schedule['created_by']),
+                db_session= db_session,
                 ):
 
                 newly_created_schedule = db_session.execute(
@@ -54,6 +54,13 @@ def test_create_schedule(db_session):
 
 @pytest.mark.skip
 def test_update_schedule():
+    
+    # Test Cases -> Full Update | Partial Update | No data to update protection
+    
+    
+    # Iterate through the cases with the same logic
+    
+    # Depending on the result send different result_codes
     raise NotImplementedError
 
 @pytest.mark.skip

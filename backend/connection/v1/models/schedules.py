@@ -11,34 +11,34 @@ class Schedule(Base):
         nullable= False,
         autoincrement= True,
     )
-    name: str = Column(
+    name = Column(
         String,
         nullable= False,
     )
-    description: str = Column(
+    description = Column(
         String,
         nullable= True,
     )
-    status: str = Column(
+    status = Column(
         String,
         nullable= False,
     )
-    group_id: str = Column(
+    group_id = Column(
         String,
         ForeignKey("groups.unique_uuid"),
         nullable= True,
     )
-    created_by: int = Column(
+    created_by = Column(
         BigInteger,
         ForeignKey("users.user_id"),
         nullable= False,
     )
-    created_at: DateTime = Column(
+    created_at = Column(
         DateTime(timezone= True),
         nullable= False,
         server_default= func.now(),
     )
-    updated_at: DateTime = Column(
+    updated_at = Column(
         DateTime(timezone= True),
         nullable= True,
     )
@@ -46,63 +46,63 @@ class Schedule(Base):
 
 class Event(Base):
     __tablename__ = 'events'
-    event_id: int = Column(
+    event_id = Column(
         BigInteger,
         primary_key= True,
         nullable= False,
         autoincrement= True,
     )
-    schedule_id: int = Column(
+    schedule_id = Column(
         BigInteger,
         ForeignKey("schedules.schedule_id"),
         nullable= False,
     )
-    title: str = Column(
+    title = Column(
         String,
         nullable= False,
     )
-    description: str = Column(
+    description = Column(
         Text,
         nullable= True,
     )
-    start_at: DateTime = Column(
+    start_at = Column(
         DateTime(timezone= True),
         nullable= False,
     )
-    end_at: DateTime = Column(
+    end_at = Column(
         DateTime(timezone= True),
         nullable= False,
     )
-    color_id: int = Column(
+    color_id = Column(
         BigInteger,
         ForeignKey("colors.color_id"),
         nullable= False,
     )
-    is_repeating: bool = Column(
+    is_repeating = Column(
         Boolean,
         nullable= False,
         default= False,
     )
-    repeat_pattern: str = Column(
+    repeat_pattern = Column(
         String,
         nullable= True,
     )
-    status: str = Column(
+    status = Column(
         String,
         nullable= False,
         default= 'active',
     )
-    created_by: int = Column(
+    created_by = Column(
         BigInteger,
         ForeignKey("users.user_id"),
         nullable= False,
     )
-    created_at: DateTime = Column(
+    created_at = Column(
         DateTime(timezone= True),
         nullable= False,
         server_default= func.now(),
     )
-    updated_at: DateTime = Column(
+    updated_at = Column(
         DateTime(timezone= True),
         nullable= True,
     )
