@@ -1,4 +1,4 @@
-from sqlalchemy import select
+from sqlalchemy import select, update
 
 import backend.app.services.v1 as v1
 import backend.connection.v1.models as models
@@ -32,8 +32,26 @@ def create_schedule(name: str, description: str, created_by: int, db_session) ->
         db_session.rollback()
         return False
 
-def update_schedule(name: str, description: str, created_by: int, db_session):
+def update_schedule(orig_name: str, orig_description: str, new_name: str | None, new_description: str | None, db_session) -> int:
     
+    new_name = orig_name if new_name is None else new_name
+    new_description = orig_description if new_description is None else new_description
     
+    #---- Values that can be changed: name, desc ----
+    
+    try:
+        db_session.execute(
+            update(
+                models.Schedule
+            ).where(
+                models.Schedule.name == orig_name,
+                models.Schedule.description == orig_description,
+            ).values(
+                name = '',
+                description = '',
+            )
+        )
+    except:
+        ...
     
     raise NotImplementedError
