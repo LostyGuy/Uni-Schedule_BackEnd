@@ -124,7 +124,7 @@
 
 <div align='center' class='techstack'>
     <h2>Progress Timeline</h2>
-    <p>Placeholder</p>
+    <iframe url="https://uni-schedulebackend-devlog.vercel.app" title="Vercel Progress Timeline"></iframe>
     <div style="color: grey;">
         <h5 style="display: inline-block;">|</h5>
         <h5 style="display: inline-block;">This section was created using AI. Code was AI generated but througly reviewed before usage.</h5>
