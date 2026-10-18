@@ -67,15 +67,7 @@
             <td>In Progress</td>
         </tr>
     </table>
-    <div style="color: grey;">
-        <h5 style="display: inline-block;">|</h5>
-        <h5 style="display: inline-block;">RBAC - Role Based Access Control</h5>
-        <h5 style="display: inline-block;">|</h5>
-        <h5 style="display: inline-block;">CRUD - Create Read Update Delete</h5>
-        <h5 style="display: inline-block;">|</h5>
-        <h5 style="display: inline-block;">TDD - Test Driven Development</h5>
-        <h5 style="display: inline-block;">|</h5>
-    </div>
+    <h5 style="display: inline-block;">| RBAC - Role Based Access Control | CRUD - Create Read Update Delete | TDD - Test Driven Development |</h5>
 </div>
 
 <!-- <hr> -->
@@ -95,7 +87,7 @@
 
 <div align='center' class='testing'>
     <h2>Automated Tests? - YES, come this way</h2>
-    <p>While writing this paragraph there is <b>10</b> valid test. Since the introduction of scalability schema all services are versioned one of them is testing module. Estimated number of `v1` test is <b>24</b>.</p>
+    <p>While writing this paragraph there is <b>10</b> valid test. Since the introduction of scalability schema all services are versioned one of them is testing module. Estimated number of `v1` test is <b>39</b>.</p>
 </div>
 
 <hr>
@@ -122,7 +114,7 @@
 
 <hr>
 
-<div align='center' class='techstack'>
+<div align='center' class='timeline'>
     <h2>Progress Timeline</h2>
     <a href="https://uni-schedulebackend-devlog.vercel.app" target="_blank">
         <img src="https://img.shields.io/badge/▶_Open_Full_Interactive_App-6366f1?style=for-the-badge&logo=vercel&logoColor=white" alt="Open Live App" />
@@ -156,11 +148,7 @@
         > <code>pytest backend/testing/v1/unit/services/schedule/ -v</code> <br>
     </details>
     <!-- DEVLOG_ENTRIES_END -->
-    <div style="color: grey;">
-        <h5 style="display: inline-block;">|</h5>
-        <h5 style="display: inline-block;">This section was created using AI. Code was AI generated but througly reviewed before usage.</h5>
-        <h5 style="display: inline-block;">|</h5>
-    </div>
+    <h5>| This section was created using AI. Code was AI generated but througly reviewed before usage. |</h5>
 </div>
 
 <hr>
