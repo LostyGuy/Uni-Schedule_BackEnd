@@ -1,22 +1,22 @@
 <div align='center' class='intro'>
     <h1>Uni Schedule</h1>
-    <div >
-        <img style="display: inline;" alt="Static Badge" src="https://img.shields.io/badge/build-3.14.0-blue?style=for-the-badge&logo=python&logoColor=%233776AB&label=python">
+    <div> <!-- Backend -->
+        <img style="display: inline;" alt="Static Badge" src="https://img.shields.io/badge/build-3.12.0-blue?style=for-the-badge&logo=python&logoColor=%233776AB&label=python">
         <img style="display: inline;" alt="Static Badge" src="https://img.shields.io/badge/build--blue?style=for-the-badge&logo=pytest&logoColor=%230A9EDC&label=Pytest&color=%230A9EDC">
         <img style="display: inline;" alt="Static Badge" src="https://img.shields.io/badge/build--blue?style=for-the-badge&logo=sqlalchemy&logoColor=%23D71F00&label=sqlalchemy&color=%23D71F00">
         <img style="display: inline;" alt="Static Badge" src="https://img.shields.io/badge/build--blue?style=for-the-badge&logo=fastapi&logoColor=%23009688&label=fastapi&color=%23009688">
     </div>
-    <div>
+    <div> <!-- Portability -->
         <img style="display: inline;" alt="Static Badge" src="https://img.shields.io/badge/build--blue?style=for-the-badge&logo=docker&logoColor=%232496ED&label=Docker">
         <img style="display: inline;" alt="Static Badge" src="https://img.shields.io/badge/build--blue?style=for-the-badge&logo=supabase&logoColor=%233FCF8E&label=supabase&color=%233FCF8E">
         <img style="display: inline;" alt="Static Badge" src="https://img.shields.io/badge/build--blue?style=for-the-badge&logo=postgresql&logoColor=%234169E1&label=postgresql&color=%234169E1">
     </div>
-    <div>
+    <div> <!-- Frontend -->
         <img style="display: inline;" alt="Static Badge" src="https://img.shields.io/badge/build-3.38.9-blue?style=for-the-badge&logo=flutter&logoColor=%232496ED&label=Flutter">
         <img style="display: inline;" alt="Static Badge" src="https://img.shields.io/badge/build--blue?style=for-the-badge&logo=nextdotjs&logoColor=%23000000&label=next.js&color=%23000000">
         <img style="display: inline;" alt="Static Badge" src="https://img.shields.io/badge/build--blue?style=for-the-badge&logo=tailwindcss&logoColor=%2306B6D4&label=tailwindcss&color=%2306B6D4">
     </div>
-    <div>
+    <div> <!-- Reviews -->
         <img style="display: inline;" alt="Static Badge" src="https://img.shields.io/coderabbit/prs/github/LostyGuy/Uni-Schedule?utm_source=oss&utm_medium=github&utm_campaign=LostyGuy%2FUni-Schedule&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews">
     </div>
 </div>
@@ -40,33 +40,42 @@
         <th>Mobile App</th>
         <tr>
             <td>1.</td>
-            <td>Unit Tests</td>
+            <td>Planning the structure, database models and steps of development ✅</td>
             <td>Functional Design + Connection with Backend</td>
             <td><50 group of people are given up to 6 months of time to for testing purposes</td>
             <td>In Progress</td>
         </tr>
         <tr>
             <td>2.</td>
-            <td>RBAC + Personal Data Security</td>
+            <td>RBAC, Personal Data Security, User Account CRUD ✅</td>
             <td>Dynamic Schedule and responsive display</td>
             <td>Collecting bug reports, feature ideas etc.</td>
             <td>In Progress</td>
         </tr>
         <tr>
             <td>3.</td>
-            <td>Operations on Schedule  <br> <b>🔴 (CURRENT)</b></td>
+            <td>Operations on Schedule and Event Processing<br> <b>🔴 (CURRENT)</b></td>
             <td>Final Design</td>
             <td>Final Polishes and Hot Fixes + E2E Tests</td>
             <td>In Progress</td>
         </tr>
         <tr>
             <td>4.</td>
-            <td>Securing endpoints + Login with Google account</td>
+            <td>Setting endpoints and schemes that restrics what data comes in and out of a request</td>
             <td>Integration Tests + Security of Inputs</td>
             <td>Public release of Alpha on Google play and Social Media Announcement</td>
             <td>In Progress</td>
         </tr>
     </table>
+    <div style="color: grey;">
+        <h5 style="display: inline-block;">|</h5>
+        <h5 style="display: inline-block;">RBAC - Role Based Access Control</h5>
+        <h5 style="display: inline-block;">|</h5>
+        <h5 style="display: inline-block;">CRUD - Create Read Update Delete</h5>
+        <h5 style="display: inline-block;">|</h5>
+        <h5 style="display: inline-block;">TDD - Test Driven Development</h5>
+        <h5 style="display: inline-block;">|</h5>
+    </div>
 </div>
 
 <!-- <hr> -->
@@ -84,12 +93,19 @@
 
 <hr>
 
+<div align='center' class='testing'>
+    <h2>Automated Tests? - YES, come this way</h2>
+    <p>While writing this paragraph there is <b>10</b> valid test. Since the introduction of scalability schema all services are versioned one of them is testing module. Currently `v1` contains <b>10</b> test that are actively developed. Estimated number of `v1` test is <b>24</b>.</p>
+</div>
+
+<hr>
+
 <div align='center' class='visual_concept'>
     <h2>Visual Concept</h2>
     <img src="readme_files/main_page.png" alt="main_page" height="600px" style="margin: auto;">
 </div>
 
-<hr>
+<!-- <hr>
 
 <div align='center' class='security'>
     <h2>What Security Measures Were Taken</h2>
@@ -101,6 +117,18 @@
         <h4>Automatic QA tests so the system is always running correctly</h4>
         <h4>RBAC (Role Based Access Control) Prevents unauthorized access <b>[IN PROGRESS]</b></h4>
         <h4>Logging suspicious activities, errors, invalid queries and ability to report a bug via form <b>[IN PROGRESS]</b></h4>
+    </div>
+</div> -->
+
+<hr>
+
+<div align='center' class='techstack'>
+    <h2>Progress Timeline</h2>
+    <p>Placeholder</p>
+    <div style="color: grey;">
+        <h5 style="display: inline-block;">|</h5>
+        <h5 style="display: inline-block;">This section was created using AI. Code was AI generated but througly reviewed before usage.</h5>
+        <h5 style="display: inline-block;">|</h5>
     </div>
 </div>
 
@@ -152,15 +180,8 @@ def db_session():
     </details>
 </div>
 
-<hr>
-
-<div align='center' class='testing'>
-    <h2>Yes I Do Include Automatic Tests</h2>
-    <p>This project includes more than 25 unit tests. They check both endpoints and business logic. <br> My setup mocks database so none of the operations made during tests stay on database.</p>
-</div>
-
-<hr>
+<!-- <hr>
 
 <div align='center' class='techstack'>
     <h2>Tech Stack</h2>
-</div>
+</div> -->
