@@ -70,6 +70,11 @@ def add_entry(title, status="passed", badge="", tags=None, target="", notes="", 
                 f.write(new_content)
 
             print(f"✅ Successfully added entry: '{title}' to devlog/entries.js")
+            try:
+                from sync_readme import sync_readme
+                sync_readme(max_count=3)
+            except Exception as sync_err:
+                print(f"Note: Could not auto-sync README.md: {sync_err}")
         else:
             print("Failed to locate insertion point in entries.js")
     except Exception as e:

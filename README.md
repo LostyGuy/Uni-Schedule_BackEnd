@@ -95,7 +95,7 @@
 
 <div align='center' class='testing'>
     <h2>Automated Tests? - YES, come this way</h2>
-    <p>While writing this paragraph there is <b>10</b> valid test. Since the introduction of scalability schema all services are versioned one of them is testing module. Currently `v1` contains <b>10</b> test that are actively developed. Estimated number of `v1` test is <b>24</b>.</p>
+    <p>While writing this paragraph there is <b>10</b> valid test. Since the introduction of scalability schema all services are versioned one of them is testing module. Estimated number of `v1` test is <b>24</b>.</p>
 </div>
 
 <hr>
@@ -124,7 +124,38 @@
 
 <div align='center' class='techstack'>
     <h2>Progress Timeline</h2>
-    <iframe url="https://uni-schedulebackend-devlog.vercel.app" title="Vercel Progress Timeline"></iframe>
+    <a href="https://uni-schedulebackend-devlog.vercel.app" target="_blank">
+        <img src="https://img.shields.io/badge/▶_Open_Full_Interactive_App-6366f1?style=for-the-badge&logo=vercel&logoColor=white" alt="Open Live App" />
+    </a>
+    <br>
+    <!-- DEVLOG_ENTRIES_START -->
+    <details open>
+        <summary><b>🔵 Today: Implemented automated README sync</b> <code>#automation</code> <code>#devlog</code></summary>
+        <br>
+        > **Target:** <code>devlog/sync_readme.py</code> <br>
+        > **Status:** Auto-Sync <br>
+        > - Auto syncs top 3 entries to README <br>
+        > - Removes oldest entry automatically <br>
+    </details>
+    <details>
+        <summary><b>🟢 Today: Verified Supabase database connection and RLS policies</b> <code>#database</code> <code>#supabase</code> <code>#backend</code></summary>
+        <br>
+        > **Target:** <code>backend/app/db/supabase.py</code> <br>
+        > **Status:** RLS Verified <br>
+        > - Created mock client <br>
+        > - Tested row-level security policies <br>
+    </details>
+    <details>
+        <summary><b>🟢 Today: Passed Schedule CRUD collision edge-cases</b> <code>#tests</code> <code>#backend</code> <code>#schedule</code></summary>
+        <br>
+        > **Target:** <code>backend/testing/v1/unit/services/schedule/test_schedule_CRUD.py</code> <br>
+        > **Status:** 14/14 Passed ✅ <br>
+        > - Added test coverage for overlapping timeslot requests across semester bounds. <br>
+        > - Verified classroom capacity limits properly reject overbooking with HTTP 409. <br>
+        > - Ensured schedule entity relations serialize cleanly. <br>
+        > <code>pytest backend/testing/v1/unit/services/schedule/ -v</code> <br>
+    </details>
+    <!-- DEVLOG_ENTRIES_END -->
     <div style="color: grey;">
         <h5 style="display: inline-block;">|</h5>
         <h5 style="display: inline-block;">This section was created using AI. Code was AI generated but througly reviewed before usage.</h5>

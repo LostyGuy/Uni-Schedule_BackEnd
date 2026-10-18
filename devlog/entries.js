@@ -3,6 +3,24 @@
 // Any tag you put in the "tags" array will AUTOMATICALLY generate a filter button in the UI!
 
 const ENTRIES = [
+  {
+    "date": "2026-10-18",
+    "title": "Implemented automated README sync",
+    "status": "feature",
+    "badge": "Auto-Sync",
+    "tags": [
+      "automation",
+      "devlog"
+    ],
+    "open": true,
+    "target": "devlog/sync_readme.py",
+    "bullets": [
+      "Auto syncs top 3 entries to README",
+      "Removes oldest entry automatically"
+    ],
+    "terminal": ""
+  },
+
 
   {
     "date": "2026-10-18",
