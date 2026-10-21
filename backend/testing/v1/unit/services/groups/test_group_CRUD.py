@@ -1,7 +1,7 @@
 import pytest
 from sqlalchemy import select
 
-import backend.app.services.v1 as v1
+import backend.app.v1.services as services
 import backend.connection.v1.models as models
 #!----Tests----
 
@@ -10,7 +10,7 @@ import backend.connection.v1.models as models
 def test_create_group(db_session):
 
     try:
-        v1.create_group(
+        services.create_group(
             name= "some name",
             db_session= db_session,
         )

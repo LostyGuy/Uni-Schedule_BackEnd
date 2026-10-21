@@ -14,13 +14,16 @@ def _get_environmental_variables(name: str) -> str:
 
 DATABASE_URL = _get_environmental_variables("DATABASE_URL")
 
-engine = create_engine(DATABASE_URL)
-SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
+_engine = create_engine(DATABASE_URL)
+_SessionLocal = sessionmaker(bind=_engine, autoflush=False, autocommit=False)
 Base = declarative_base()
 
 def get_db():
-    db = SessionLocal()
+    db = _SessionLocal()
     try:
         yield db
+    except Exception:
+        db.rollback()
+        raise
     finally:
         db.close()

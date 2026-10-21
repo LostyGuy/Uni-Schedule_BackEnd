@@ -3,12 +3,12 @@ import os
 import pytest
 from sqlalchemy import select
 
-import backend.app.services.v1 as v1
+import backend.app.v1.services as services
 import backend.connection.v1.models as models
 from backend.testing.v1.conftest import MIXED_USERS
 from backend.logging import log_error
-from backend.app.services.v1.auth_tokens import create_refresh_token
-from backend.security.hashing import hash_string
+from backend.app.v1.services.auth_tokens import create_refresh_token
+from backend.security.v1.hashing import hash_string
 
 
 def test_user_login(db_session):
@@ -34,7 +34,7 @@ def test_user_login(db_session):
     for index, user in enumerate(MIXED_USERS):
 
         try:
-            token =v1.user_login(
+            token =services.user_login(
                 email= user["email"],
                 password= user["password"],
                 device_name= user["device_name"],
@@ -75,7 +75,7 @@ def test_user_logout(db_session):
         db_session= db_session,
     )
 
-    success = v1.user_log_out(db_session, raw_token)
+    success = services.user_log_out(db_session, raw_token)
     assert success is True
     
     stmt = select(

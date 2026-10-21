@@ -1,5 +1,7 @@
 from fastapi import APIRouter
-from backend.app.routers.v1 import users, auth_login, auth_qr, groups, notifications, schedules
+from backend.app.v1.routers import auth_login, auth_qr, groups, notifications
+from backend.app.v1.routers import users
+from backend.app.v1.routers import schedules
 
 router = APIRouter(prefix="/api/v1")
 

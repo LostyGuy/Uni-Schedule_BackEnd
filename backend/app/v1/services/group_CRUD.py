@@ -1,0 +1,18 @@
+from sqlalchemy import select
+from uuid import uuid4
+
+import backend.app.v1.services as services
+import backend.connection.v1.models as models
+
+def create_group(name: str, db_session) -> str:
+
+    uuid: str = str(uuid4())
+    new_group = models.Group(
+        name = name,
+        unique_uuid = uuid,
+        # created_by = ...,
+    )
+    db_session.add(new_group)
+    db_session.commit()
+    
+    return uuid

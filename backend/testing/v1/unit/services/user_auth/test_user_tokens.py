@@ -6,8 +6,8 @@ from datetime import timedelta
 import jwt
 
 import backend.connection.v1.models as models
-import backend.app.services.v1.auth_tokens as token
-from backend.security.hashing import hash_string
+import backend.app.v1.services.auth_tokens as token
+from backend.security.v1.hashing import hash_string
 from backend.logging import log_error
 from backend.testing.v1.conftest import EXISTING_USERS
 from backend.timestamps import current_time

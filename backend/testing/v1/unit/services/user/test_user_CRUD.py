@@ -2,17 +2,17 @@ import os
 
 import pytest
 
-import backend.app.services.v1 as v1
+import backend.app.v1.services as services
 import backend.connection.v1.models as models
 from backend.testing.v1.conftest import users_data, roles_data
-from backend.security.hashing import hash_string
+from backend.security.v1.hashing import hash_string
 from backend.logging import log_error
 
 
 def test_new_user_register(db_session):
     '''This test takes user data and puts it into CRUD to register the user into system'''
 
-    register_Emily = v1.user_CRUD.user_register(
+    register_Emily = services.user_CRUD.user_register(
         name= 'Emily',
         surname= 'Mayer',
         username= 'EmilyMayer',
