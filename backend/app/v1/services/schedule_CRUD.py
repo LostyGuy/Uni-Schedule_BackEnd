@@ -1,5 +1,4 @@
 from sqlalchemy import select, update
-import sqlalchemy.exc as sqlAL_error
 
 import backend.app.v1.services as services
 import backend.connection.v1.models as models
@@ -33,7 +32,7 @@ def create_schedule(name: str, description: str, created_by: int, db_session) ->
         db_session.rollback()
         return False
 
-def update_schedule(orig_name: str, orig_description: str, new_name: str | None, new_description: str | None, db_session) -> int:
+def update_schedule(orig_name: str, orig_description: str, new_name: str | None, new_description: str | None, db_session) -> None:
     
     new_name = orig_name if new_name is None else new_name
     new_description = orig_description if new_description is None else new_description
@@ -53,7 +52,5 @@ def update_schedule(orig_name: str, orig_description: str, new_name: str | None,
                 description = new_description,
             )
         )
-    except sqlAL_error.:
-        ...
-    
-    raise NotImplementedError
+    except Exception:
+        raise NotImplementedError
