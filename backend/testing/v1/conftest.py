@@ -9,7 +9,7 @@ from fastapi.testclient import TestClient
 from backend.app.main import app
 from backend.connection.v1.connection import Base, get_db
 import backend.connection.v1.models as models
-from backend.security.hashing import hash_string
+from backend.security.v1.hashing import hash_string
 
 TEST_DATABASE_URL = "postgresql://postgres:postgres@localhost:15432/postgres"
 
@@ -54,18 +54,19 @@ def setup_db():
     #     conn.execute(text("DROP SCHEMA public CASCADE"))
     #     conn.execute(text("CREATE SCHEMA public"))
     #!---- ----
+    Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
     session = TestSessionLocal()
     try:
-        roles = roles_data()
-        users = users_data()
+        roles = roles_data() # Turn to seed.sql?
+        users = users_data() # Turn to seed.sql?
         session.add_all(roles)
         session.add_all(users)
         session.commit()
         yield
     finally:
         session.close()
-        Base.metadata.drop_all(bind=engine, tables=reversed(Base.metadata.sorted_tables))
+        # Base.metadata.drop_all(bind=engine, tables=reversed(Base.metadata.sorted_tables))
 
 
 @pytest.fixture

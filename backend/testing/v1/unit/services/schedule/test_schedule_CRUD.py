@@ -3,7 +3,7 @@ from sqlalchemy import select
 
 from backend.testing.v1.conftest import MIXED_USERS
 import backend.connection.v1.models as models
-import backend.app.services.v1.schedule_CRUD as v1
+import backend.app.v1.services.schedule_CRUD as v1
 from backend.logging import log_error
 
 
@@ -79,8 +79,8 @@ def test_update_schedule(db_session):
         result = v1.update_schedule(
             orig_name= orig_name,
             orig_description= orig_desc,
-            new_name=case.get('name'),
-            new_description=case.get('desc'),
+            new_name=case.get('name', None),
+            new_description=case.get('desc', None),
             db_session= db_session,
         )
         

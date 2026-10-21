@@ -1,6 +1,7 @@
 from sqlalchemy import select, update
+import sqlalchemy.exc as sqlAL_error
 
-import backend.app.services.v1 as v1
+import backend.app.v1.services as services
 import backend.connection.v1.models as models
 
 
@@ -8,14 +9,14 @@ def create_schedule(name: str, description: str, created_by: int, db_session) ->
 
     try:
         user_id = db_session.execute(
-                select(
-                    models.User.user_id
-                ).where(
-                    models.User.user_id == created_by
-                )
-            ).scalar()
+            select(
+                models.User.user_id
+            ).where(
+                models.User.user_id == created_by
+            )
+        ).scalar()
         
-        group_id: str = v1.create_group(name= name, db_session= db_session)
+        group_id: str = services.create_group(name= name, db_session= db_session)
 
         new_schedule = models.Schedule(
             name = name,
@@ -46,12 +47,13 @@ def update_schedule(orig_name: str, orig_description: str, new_name: str | None,
             ).where(
                 models.Schedule.name == orig_name,
                 models.Schedule.description == orig_description,
+                models.Schedule.created_by == ...,
             ).values(
-                name = '',
-                description = '',
+                name = new_name,
+                description = new_description,
             )
         )
-    except:
+    except sqlAL_error.:
         ...
     
     raise NotImplementedError

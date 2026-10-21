@@ -1,7 +1,7 @@
 import os
 
 import backend.connection.v1.models as models
-import backend.app.services.v1.auth_tokens as auth_tokens
+import backend.app.v1.services.auth_tokens as auth_tokens
 from backend.security.hashing import hash_string
 from sqlalchemy import select, update
 

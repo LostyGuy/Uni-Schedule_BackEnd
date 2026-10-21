@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from uuid import uuid4
 
-import backend.app.services.v1 as v1
+import backend.app.v1.services as services
 import backend.connection.v1.models as models
 
 def create_group(name: str, db_session) -> str:

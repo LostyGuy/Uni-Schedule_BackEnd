@@ -6,7 +6,7 @@ from datetime import timedelta
 from sqlalchemy import select, update
 
 import backend.connection.v1.models as models 
-from backend.security.hashing import hash_string
+from backend.security.v1.hashing import hash_string
 from backend.timestamps import current_time, current_timestamp
 from backend.logging import current_function, log_info, log_error
 from backend.config import get_environmental_variables

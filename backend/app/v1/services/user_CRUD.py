@@ -1,7 +1,7 @@
 import backend.connection.v1.models as models
 from backend.logging import current_function, log_error
 from backend.timestamps import current_time
-from backend.security.hashing import hash_string
+from backend.security.v1.hashing import hash_string
 
 def user_register(name: str, surname: str, username: str, email: str, password: str, db_session, policy_agreement: bool = False, role_id: int = 1) -> bool:
     """
