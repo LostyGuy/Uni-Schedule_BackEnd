@@ -5,7 +5,7 @@ from backend.logging import log_sql_handler_error
 
 def get_attributes(exc) -> dict[str, str]:
     
-    sql_statement = getattr(exc, "statement")
+    sql_statement = getattr(exc, "statement", "No Statement")
     sql_parameters = getattr(exc, "params", "N/A")
     original_message = str(getattr(exc, "orig", exc))
     
